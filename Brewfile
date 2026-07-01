@@ -33,5 +33,6 @@ brew "gmp"
 cask "ghostty"
 cask "visual-studio-code"
 cask "orbstack"                       # containers + linux VMs (Docker-compatible)
+cask "google-chrome"
 cask "figma"
 cask "font-jetbrains-mono-nerd-font"
