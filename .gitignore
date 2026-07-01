@@ -1,0 +1,5 @@
+# Backups created by link_file.
+*.bak.*
+.DS_Store
+# Local, machine-specific overrides that should never be tracked.
+*.local

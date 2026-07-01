@@ -1,0 +1,26 @@
+# ~/.gitconfig — managed by bootstrap.
+# Put your name/email in ~/.gitconfig.local (untracked); it is included below.
+[init]
+	defaultBranch = main
+[alias]
+	co = checkout
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+[fetch]
+	prune = true
+[core]
+	editor = code --wait
+	pager = delta
+[sequence]
+	editor = code --wait
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+[merge]
+	conflictStyle = zdiff3
+[include]
+	path = ~/.gitconfig.local

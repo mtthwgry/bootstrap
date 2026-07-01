@@ -1,0 +1,14 @@
+# Global language runtimes + tools. `mise install` reads this file.
+# Pin exact x.y.z to fully freeze a version; a bare major tracks that line's latest.
+[tools]
+node = "24"      # Node.js LTS line. Change to e.g. "24.4.1" to pin exact.
+ruby = "3.4"
+python = "3.13"
+go = "latest"
+direnv = "latest"
+"npm:node-gyp" = "latest"
+
+[settings]
+use_versions_host = false
+# Reads .node-version / .ruby-version / .tool-versions in project dirs too.
+legacy_version_file = true

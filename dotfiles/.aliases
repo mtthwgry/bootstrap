@@ -1,0 +1,9 @@
+# ~/.aliases — managed by bootstrap.
+alias ll='eza -lah --git'
+alias gs='git status'
+alias gd='git diff'
+alias gc='git commit'
+alias gp='git push'
+alias gl='git log --oneline --graph --decorate -20'
+alias ..='cd ..'
+alias ...='cd ../..'
