@@ -69,3 +69,32 @@ link_file() {
   run ln -s "$src" "$dst"
   success "linked: $dst -> $src"
 }
+
+# unlink_file <target> — reverse of link_file. Removes the symlink ONLY if it points
+# into $BOOTSTRAP_ROOT (i.e. we created it), then restores the newest
+# <target>.bak.<timestamp> if one exists. Leaves anything it does not own untouched.
+unlink_file() {
+  local dst="$1"
+  if [[ -L "$dst" ]]; then
+    local tgt; tgt="$(readlink "$dst")"
+    if [[ "$tgt" == "$BOOTSTRAP_ROOT"/* ]]; then
+      run rm -f "$dst"
+      success "unlinked: $dst"
+    else
+      warn "not ours, leaving: $dst -> $tgt"
+      return 0
+    fi
+  elif [[ -e "$dst" ]]; then
+    warn "not a symlink, leaving as-is: $dst"
+    return 0
+  else
+    return 0
+  fi
+
+  local newest
+  newest="$(ls -1d "${dst}".bak.* 2>/dev/null | sort | tail -n1)"
+  if [[ -n "$newest" ]]; then
+    run mv "$newest" "$dst"
+    success "restored backup: $newest -> $dst"
+  fi
+}

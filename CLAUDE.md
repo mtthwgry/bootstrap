@@ -16,7 +16,12 @@ Bootstrap toolkit that provisions a fresh **macOS (Apple Silicon / arm64)** engi
 ./bootstrap.sh --skip github      # skip steps by name
 bash scripts/30-dotfiles.sh       # run one step standalone
 brew bundle --file Brewfile       # (re)apply Homebrew packages only
+
+./teardown.sh                     # unlink repo symlinks + restore backups (safe default)
+./teardown.sh --dry-run --all     # preview a full teardown incl. mise + brew packages
 ```
+
+`teardown.sh` reverses bootstrap. Default = `unlink_file` every config it owns (symlink must point into `$BOOTSTRAP_ROOT`) and restore the newest `.bak.<ts>`. `--mise` and `--packages` (or `--all`) add the destructive layers. It never touches `~/.ssh`, `*.local`, Claude Code, or files it did not create.
 
 There is no build or test suite. Validate changes by running the relevant step (or the whole thing) with `--dry-run` and reading the printed actions.
 
@@ -27,6 +32,7 @@ There is no build or test suite. Validate changes by running the relevant step (
 `lib/common.sh` is sourced by every script and is the contract all steps follow:
 - **`run <cmd...>`** — the mutation primitive. Executes normally; under `--dry-run` it *prints only*. Every state-changing command MUST go through `run` (or an explicit `is_dry_run` guard for pipes/heredocs), or `--dry-run` becomes a lie. This invariant is the whole safety model.
 - **`link_file <src> <dst>`** — idempotent symlink; if `dst` already points at `src` it skips, otherwise backs the existing target up to `<dst>.bak.<timestamp>` before linking.
+- **`unlink_file <dst>`** — reverse of `link_file` (used by `teardown.sh`); removes the symlink only if it points into `$BOOTSTRAP_ROOT`, then restores the newest backup.
 - `require_macos_arm64`, `have <cmd>`, and logging (`info/step/success/warn/error/die`).
 
 Two config-delivery patterns:

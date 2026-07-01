@@ -41,6 +41,19 @@ bash scripts/30-dotfiles.sh          # run one step standalone
 | Git/SSH   | ed25519 key, macOS keychain, `~/.ssh/config`, prints key for GitHub |
 | Claude    | Claude Code via the official installer |
 
+## Teardown
+
+```bash
+./teardown.sh                  # unlink repo symlinks + restore backups (safe)
+./teardown.sh --mise           # also remove standalone mise + runtimes
+./teardown.sh --packages       # also brew-uninstall everything in the Brewfile
+./teardown.sh --all --dry-run  # preview a full teardown
+```
+
+Teardown only removes symlinks that point back into this repo and restores the
+newest `.bak.<timestamp>`. It never deletes your SSH keys, `*.local` files, or
+Claude Code.
+
 ## Safety
 
 Every mutation runs through a `run` helper, so `--dry-run` shows exactly what
