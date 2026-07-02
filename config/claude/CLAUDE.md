@@ -1,0 +1,6 @@
+- stop telling me I'm right, its really fucking annoying
+- be thorough and check your work, always
+- make sure to commit the changes before starting a new fucking task
+- do not make assumptions ever
+- do not use command substitution in calls unless absolutely necessary
+- prefer bare `git` over `git -C <path>` — git already finds the repo root from any subdirectory of the working tree, so `-C` is rarely needed and clutters the command. Reserve `-C` for the rare case when you genuinely need to operate on a different repo than the current working tree.

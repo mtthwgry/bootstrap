@@ -50,7 +50,7 @@ printf '[user]\n\tname = Your Name\n\temail = you@example.com\n' > ~/.gitconfig.
 Steps run in order: **preflight** (platform + Xcode CLT/license) → **homebrew**
 (Brewfile) → **mise** (runtimes) → **dotfiles** → **shell** (login shell → zsh) →
 **macos** (defaults) → **ghostty** → **vscode** → **github** (interactive SSH wizard) →
-**claude**. It is idempotent — safe to
+**claude** (install) → **claude-config** (symlink ~/.claude). It is idempotent — safe to
 re-run; already-done work is skipped and any existing file is backed up to
 `<file>.bak.<timestamp>` before it is symlinked.
 
@@ -77,7 +77,7 @@ bash scripts/30-dotfiles.sh          # run one step standalone
 | Dotfiles  | `dotfiles/` → symlinked into `$HOME` (`.zshrc`, `.zprofile`, `.aliases`, `.gitconfig`) |
 | Editor    | VS Code settings + extensions (`config/vscode/`) |
 | Git/SSH   | interactive wizard: port keys, macOS keychain, write `~/.ssh/config` (github + opt-in homelab) |
-| Claude    | Claude Code via the official installer |
+| Claude    | Claude Code via the official installer; `~/.claude` config (settings, statusline, CLAUDE.md, skills, agents) symlinked from `config/claude/` |
 
 ## Teardown
 

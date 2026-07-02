@@ -19,6 +19,7 @@ STEPS=(
   "vscode:scripts/50-vscode.sh"
   "github:scripts/60-github-ssh.sh"
   "claude:scripts/70-claude-code.sh"
+  "claude-config:scripts/75-claude-config.sh"
 )
 
 list_steps() { printf '%s\n' "${STEPS[@]%%:*}"; }

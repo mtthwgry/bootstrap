@@ -37,7 +37,7 @@ There is no build or test suite. Validate changes by running the relevant step (
 
 Two config-delivery patterns:
 - **`dotfiles/`** → symlinked *flat* into `$HOME` (each entry `x` becomes `~/x`) by `30-dotfiles.sh`.
-- **`config/`** → app configs symlinked to app-specific paths by their own step: mise → `~/.config/mise/config.toml`, ghostty → `~/.config/ghostty/config`, vscode → `~/Library/Application Support/Code/User/settings.json`.
+- **`config/`** → app configs symlinked to app-specific paths by their own step: mise → `~/.config/mise/config.toml`, ghostty → `~/.config/ghostty/config`, vscode → `~/Library/Application Support/Code/User/settings.json`, claude → `~/.claude/{settings.json,statusline.sh,CLAUDE.md,skills,agents}` (session data left alone).
 
 Sources of truth:
 - **`Brewfile`** — brew formulae and casks (`ghostty`, `visual-studio-code`, `orbstack`, CLI utils). Prefer adding packages here over `brew install` calls in scripts. `mise` is deliberately NOT here.

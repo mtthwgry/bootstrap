@@ -59,6 +59,11 @@ shopt -u dotglob nullglob
 unlink_file "$HOME/.config/mise/config.toml"
 unlink_file "$HOME/.config/ghostty/config"
 unlink_file "$HOME/Library/Application Support/Code/User/settings.json"
+unlink_file "$HOME/.claude/settings.json"
+unlink_file "$HOME/.claude/statusline.sh"
+unlink_file "$HOME/.claude/CLAUDE.md"
+unlink_file "$HOME/.claude/skills"
+unlink_file "$HOME/.claude/agents"
 
 # --- 2. mise (opt-in) ---
 if [[ "$DO_MISE" == "1" ]]; then
