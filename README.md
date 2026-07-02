@@ -8,7 +8,9 @@ and Claude Code. Pure Bash — runs on a clean machine with nothing pre-installe
 
 A brand-new Mac has no `git` yet. Two ways in — pick one.
 
-> Replace `OWNER` with your GitHub user/org in the commands below.
+> This is a **private** repo, so the no-git tarball path needs a token; the
+> git-clone path (SSH) works once your key is on GitHub. Fork? Swap `mtthwgry`
+> for your own user/org.
 
 ### A. No git — download the tarball with `curl` (fastest)
 
@@ -16,7 +18,7 @@ macOS ships `curl` and `tar`, so this needs nothing pre-installed:
 
 ```bash
 mkdir -p ~/code && cd ~/code
-curl -fsSL https://github.com/OWNER/bootstrap/archive/refs/heads/main.tar.gz | tar -xz
+curl -fsSL https://github.com/mtthwgry/bootstrap/archive/refs/heads/main.tar.gz | tar -xz
 mv bootstrap-main bootstrap && cd bootstrap
 ```
 
@@ -27,7 +29,7 @@ Private repo? The tarball URL needs auth — either make it public, pass a token
 
 ```bash
 xcode-select --install                 # GUI installer — provides git; wait for it to finish
-git clone https://github.com/OWNER/bootstrap.git ~/code/bootstrap
+git clone https://github.com/mtthwgry/bootstrap.git ~/code/bootstrap
 cd ~/code/bootstrap
 ```
 
