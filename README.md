@@ -6,45 +6,33 @@ and Claude Code. Pure Bash — runs on a clean machine with nothing pre-installe
 
 ## Get the repo onto a fresh machine
 
-Chicken/egg: this is a **private** repo, GitHub killed password auth, and SSH
-keys aren't set up yet (that is what step 60 does *for* you). So the very first
-clone needs a **token** — after that, bootstrap configures SSH for all future
-git ops. Fork? Swap `mtthwgry` for your own user/org.
+Public repo — no auth needed. A brand-new Mac has no `git`, but it does ship
+`curl` + `tar`, so the tarball path needs nothing pre-installed. Fork? Swap
+`mtthwgry` for your own user/org.
 
-Create a token first (either kind works):
-- Fine-grained — <https://github.com/settings/tokens?type=beta> → this repo →
-  **Repository permissions ▸ Contents: Read-only**
-- Classic — <https://github.com/settings/tokens> → scope **`repo`**
-
-### A. No git — download the tarball with `curl` (recommended, zero deps)
-
-macOS ships `curl` + `tar`, so nothing needs to be installed first:
+### A. No git — download the tarball (recommended, zero deps)
 
 ```bash
-export GH_TOKEN=ghp_xxxxxxxx          # the token you just made
 mkdir -p ~/code && cd ~/code
-curl -fsSL -H "Authorization: Bearer $GH_TOKEN" \
-  https://api.github.com/repos/mtthwgry/bootstrap/tarball/main | tar -xz
+curl -fsSL https://api.github.com/repos/mtthwgry/bootstrap/tarball/main | tar -xz
 mv mtthwgry-bootstrap-* bootstrap && cd bootstrap
+./bootstrap.sh
 ```
 
-### B. With git — token clone (needs Xcode Command Line Tools)
+### B. With git (needs Xcode Command Line Tools)
 
 ```bash
 xcode-select --install                 # provides git; wait for the GUI installer
-export GH_TOKEN=ghp_xxxxxxxx
-git clone https://x-access-token:$GH_TOKEN@github.com/mtthwgry/bootstrap.git ~/code/bootstrap
+git clone https://github.com/mtthwgry/bootstrap.git ~/code/bootstrap
 cd ~/code/bootstrap
 ```
 
-Once bootstrap has set up your SSH key, switch the remote to keyless SSH:
+The HTTPS clone above is read-only. Once bootstrap has set up your SSH key,
+switch the remote so you can push without a password:
 
 ```bash
 git remote set-url origin git@github.com:mtthwgry/bootstrap.git
 ```
-
-> Prefer no token at all? Make the repo public — then option A works without the
-> `Authorization` header. Or install `gh` later and use `gh repo clone`.
 
 ## Run
 
