@@ -6,32 +6,45 @@ and Claude Code. Pure Bash — runs on a clean machine with nothing pre-installe
 
 ## Get the repo onto a fresh machine
 
-A brand-new Mac has no `git` yet. Two ways in — pick one.
+Chicken/egg: this is a **private** repo, GitHub killed password auth, and SSH
+keys aren't set up yet (that is what step 60 does *for* you). So the very first
+clone needs a **token** — after that, bootstrap configures SSH for all future
+git ops. Fork? Swap `mtthwgry` for your own user/org.
 
-> This is a **private** repo, so the no-git tarball path needs a token; the
-> git-clone path (SSH) works once your key is on GitHub. Fork? Swap `mtthwgry`
-> for your own user/org.
+Create a token first (either kind works):
+- Fine-grained — <https://github.com/settings/tokens?type=beta> → this repo →
+  **Repository permissions ▸ Contents: Read-only**
+- Classic — <https://github.com/settings/tokens> → scope **`repo`**
 
-### A. No git — download the tarball with `curl` (fastest)
+### A. No git — download the tarball with `curl` (recommended, zero deps)
 
-macOS ships `curl` and `tar`, so this needs nothing pre-installed:
+macOS ships `curl` + `tar`, so nothing needs to be installed first:
 
 ```bash
+export GH_TOKEN=ghp_xxxxxxxx          # the token you just made
 mkdir -p ~/code && cd ~/code
-curl -fsSL https://github.com/mtthwgry/bootstrap/archive/refs/heads/main.tar.gz | tar -xz
-mv bootstrap-main bootstrap && cd bootstrap
+curl -fsSL -H "Authorization: Bearer $GH_TOKEN" \
+  https://api.github.com/repos/mtthwgry/bootstrap/tarball/main | tar -xz
+mv mtthwgry-bootstrap-* bootstrap && cd bootstrap
 ```
 
-Private repo? The tarball URL needs auth — either make it public, pass a token
-(`curl -H "Authorization: Bearer $GH_TOKEN" …`), or use option B.
-
-### B. With git — install Xcode Command Line Tools first
+### B. With git — token clone (needs Xcode Command Line Tools)
 
 ```bash
-xcode-select --install                 # GUI installer — provides git; wait for it to finish
-git clone https://github.com/mtthwgry/bootstrap.git ~/code/bootstrap
+xcode-select --install                 # provides git; wait for the GUI installer
+export GH_TOKEN=ghp_xxxxxxxx
+git clone https://x-access-token:$GH_TOKEN@github.com/mtthwgry/bootstrap.git ~/code/bootstrap
 cd ~/code/bootstrap
 ```
+
+Once bootstrap has set up your SSH key, switch the remote to keyless SSH:
+
+```bash
+git remote set-url origin git@github.com:mtthwgry/bootstrap.git
+```
+
+> Prefer no token at all? Make the repo public — then option A works without the
+> `Authorization` header. Or install `gh` later and use `gh repo clone`.
 
 ## Run
 
