@@ -12,6 +12,13 @@ export BOOTSTRAP_ROOT
 # 1 = print actions only, change nothing. Inherited from the environment.
 DRY_RUN="${DRY_RUN:-0}"
 
+# Make Homebrew-installed tools (gh, code, ...) visible to every step — even mid-run
+# on a fresh machine, where the shell that launched bootstrap has not re-sourced its
+# profile after brew was installed.
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # Colors, disabled when stdout is not a tty or NO_COLOR is set.
 if [[ -t 1 && -z "${NO_COLOR:-}" ]]; then
   _c_reset=$'\033[0m'; _c_red=$'\033[31m'; _c_grn=$'\033[32m'

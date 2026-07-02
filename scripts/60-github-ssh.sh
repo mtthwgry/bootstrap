@@ -86,8 +86,27 @@ fi
 chmod 600 "$CONFIG"
 success "ssh config written: $CONFIG"
 
+# --- Authenticate the GitHub CLI + register the key (interactive) ---
+if have gh; then
+  if gh auth status >/dev/null 2>&1; then
+    success "gh already authenticated"
+  else
+    info "authenticating GitHub CLI (interactive)"
+    gh auth login || warn "gh auth login skipped/failed — you can run it later"
+  fi
+  if [[ -f "$GH_KEY.pub" ]] && yesno "Upload $GH_KEY_NAME.pub to your GitHub account via gh?"; then
+    if gh ssh-key add "$GH_KEY.pub" --title "$(hostname -s)-$GH_KEY_NAME"; then
+      success "public key uploaded to GitHub"
+    else
+      warn "gh ssh-key add failed — add it manually below"
+    fi
+  fi
+else
+  warn "gh not found (install via the homebrew step, then re-run this step)"
+fi
+
 if [[ -f "$GH_KEY.pub" ]]; then
-  info "GitHub public key — add at https://github.com/settings/keys :"
+  info "GitHub public key — if not uploaded above, add at https://github.com/settings/keys :"
   cat "$GH_KEY.pub"
 fi
 info "verify with: ssh -T git@github.com"
