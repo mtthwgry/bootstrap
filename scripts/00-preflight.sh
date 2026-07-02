@@ -16,9 +16,18 @@ else
   is_dry_run || exit 1
 fi
 
-# Auto-accept the Xcode license if a full Xcode is installed and it is unaccepted.
-# CLT-only machines have no license gate; xcodebuild is absent, so this is skipped.
-if have xcodebuild && ! xcodebuild -license check >/dev/null 2>&1; then
-  info "accepting Xcode license (needs sudo)"
-  run sudo xcodebuild -license accept
+# The Xcode license gate only applies when a FULL Xcode.app is the active developer
+# dir. On a CLT-only machine `xcodebuild` still exists as a shim but errors ("requires
+# Xcode ... is a command line tools instance"), and there is no license to accept — so
+# only touch xcodebuild when the active dir is an actual .app.
+DEVDIR="$(xcode-select -p 2>/dev/null || true)"
+if [[ "$DEVDIR" == *.app/* ]]; then
+  if xcodebuild -license check >/dev/null 2>&1; then
+    success "Xcode license already accepted"
+  else
+    info "accepting Xcode license (needs sudo)"
+    run sudo xcodebuild -license accept
+  fi
+else
+  info "Command Line Tools only — no Xcode license step needed"
 fi
