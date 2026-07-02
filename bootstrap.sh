@@ -13,6 +13,7 @@ STEPS=(
   "homebrew:scripts/10-homebrew.sh"
   "mise:scripts/20-mise.sh"
   "dotfiles:scripts/30-dotfiles.sh"
+  "shell:scripts/35-shell.sh"
   "ghostty:scripts/40-ghostty.sh"
   "vscode:scripts/50-vscode.sh"
   "github:scripts/60-github-ssh.sh"

@@ -48,8 +48,8 @@ printf '[user]\n\tname = Your Name\n\temail = you@example.com\n' > ~/.gitconfig.
 ```
 
 Steps run in order: **preflight** (platform + Xcode CLT/license) → **homebrew**
-(Brewfile) → **mise** (runtimes) → **dotfiles** → **ghostty** → **vscode** →
-**github** (interactive SSH wizard) → **claude**. It is idempotent — safe to
+(Brewfile) → **mise** (runtimes) → **dotfiles** → **shell** (login shell → zsh) →
+**ghostty** → **vscode** → **github** (interactive SSH wizard) → **claude**. It is idempotent — safe to
 re-run; already-done work is skipped and any existing file is backed up to
 `<file>.bak.<timestamp>` before it is symlinked.
 
