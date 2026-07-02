@@ -35,4 +35,5 @@ cask "visual-studio-code"
 cask "orbstack"                       # containers + linux VMs (Docker-compatible)
 cask "google-chrome"
 cask "figma"
+cask "raycast"
 cask "font-jetbrains-mono-nerd-font"
