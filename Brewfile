@@ -22,6 +22,7 @@ brew "htop"
 brew "tldr"
 brew "gnupg"              # commit signing
 brew "zsh-autosuggestions"
+brew "zsh-syntax-highlighting"
 
 # --- Build deps for mise-managed runtimes (ruby-build, etc.) ---
 brew "openssl@3"
@@ -36,4 +37,7 @@ cask "orbstack"                       # containers + linux VMs (Docker-compatibl
 cask "google-chrome"
 cask "figma"
 cask "raycast"
+cask "slack"
+cask "linear-linear"
+cask "postico"                        # postgres GUI
 cask "font-jetbrains-mono-nerd-font"

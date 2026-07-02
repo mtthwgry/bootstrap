@@ -49,7 +49,8 @@ printf '[user]\n\tname = Your Name\n\temail = you@example.com\n' > ~/.gitconfig.
 
 Steps run in order: **preflight** (platform + Xcode CLT/license) → **homebrew**
 (Brewfile) → **mise** (runtimes) → **dotfiles** → **shell** (login shell → zsh) →
-**ghostty** → **vscode** → **github** (interactive SSH wizard) → **claude**. It is idempotent — safe to
+**macos** (defaults) → **ghostty** → **vscode** → **github** (interactive SSH wizard) →
+**claude**. It is idempotent — safe to
 re-run; already-done work is skipped and any existing file is backed up to
 `<file>.bak.<timestamp>` before it is symlinked.
 
@@ -70,7 +71,8 @@ bash scripts/30-dotfiles.sh          # run one step standalone
 | Area      | Details |
 |-----------|---------|
 | Packages  | `Brewfile` — git, gh, ripgrep, fd, bat, eza, fzf, git-delta, jq, gnupg, zsh-autosuggestions, … |
-| GUI apps  | Ghostty, VS Code, OrbStack, Google Chrome, Figma, JetBrains Mono Nerd Font |
+| GUI apps  | Ghostty, VS Code, OrbStack, Chrome, Figma, Raycast, Slack, Linear, Postico, JetBrains Mono Nerd Font |
+| macOS     | `defaults` step — fast key-repeat, Finder extensions/hidden, screenshots → ~/Screenshots, Dock autohide |
 | Runtimes  | mise (standalone) + `config/mise/config.toml` — Node 24 LTS, Ruby 3.4, Python 3.13, Go, direnv |
 | Dotfiles  | `dotfiles/` → symlinked into `$HOME` (`.zshrc`, `.zprofile`, `.aliases`, `.gitconfig`) |
 | Editor    | VS Code settings + extensions (`config/vscode/`) |

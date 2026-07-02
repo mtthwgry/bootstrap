@@ -30,3 +30,7 @@ export VISUAL="code"
 # Aliases + optional local, untracked overrides.
 [[ -f "$HOME/.aliases" ]]     && source "$HOME/.aliases"
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
+
+# zsh-syntax-highlighting — must be sourced last.
+_zsh_syntax="$(brew --prefix 2>/dev/null)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[[ -f "$_zsh_syntax" ]] && source "$_zsh_syntax"
